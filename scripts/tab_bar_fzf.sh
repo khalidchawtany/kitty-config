@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 all_tabs="$(
-    kitty @ ls | /usr/local/bin/jq -r '.[] .tabs[] | (.id|tostring) + " -> " + .title|split("\n")|join(" ")' | column -ts $'\t'
+    kitty @ ls | /usr/local/bin/jq -r '.[] .tabs[] | select(.title != "FZF") | (.id|tostring) + " -> " + .title|split("\n")|join(" ")' | column -ts $'\t'
 )"
 
 new_tab_id="$(/usr/local/bin/fzf --reverse <<< "${all_tabs}" | awk '{ print $1 }')"
